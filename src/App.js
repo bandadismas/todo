@@ -67,6 +67,11 @@ export default function App() {
     })
   }
 
+  const startEdit = (task) => {
+      setActiveItem(task);
+      setEditing(true);
+  }
+
     return(
         <div className="container">
 
@@ -102,7 +107,9 @@ export default function App() {
                                   )}
   
                             </div>
-
+                            <div style={{flex:1}}>
+                                <button onClick={() => startEdit(task)} className="btn btn-sm btn-outline-info">Edit</button>
+                            </div>
                             
 
                           </div>
