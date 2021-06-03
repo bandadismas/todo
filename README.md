@@ -15,7 +15,7 @@ Then run ```python manage.py runserver``` to run the development server.
 
 # Frontend
 
-`The frontend was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).`
+The frontend was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
 
