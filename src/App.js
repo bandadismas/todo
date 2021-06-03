@@ -90,6 +90,17 @@ const strikeUnstrike = (task) => {
     console.log('TASK:', task.completed)
   }
 
+const deleteItem = (task) => {
+    fetch(`http://127.0.0.1:8000/api/task-delete/${task.id}/`, {
+      method:'DELETE',
+      headers:{
+        'Content-type':'application/json',
+      },
+    }).then((response) =>{
+      fetchTasks()
+    })
+  }
+
     return(
         <div className="container">
 
@@ -128,7 +139,9 @@ const strikeUnstrike = (task) => {
                             <div style={{flex:1}}>
                                 <button onClick={() => startEdit(task)} className="btn btn-sm btn-outline-info">Edit</button>
                             </div>
-                            
+                            <div style={{flex:1}}>
+                                <button onClick={() => deleteItem(task)} className="btn btn-sm btn-outline-danger delete">Delete</button>
+                            </div>
 
                           </div>
                         )
