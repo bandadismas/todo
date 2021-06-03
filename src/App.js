@@ -25,15 +25,57 @@ export default function App() {
       );
   }
 
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    console.log('ITEM:', activeItem)
+
+    let url = 'http://127.0.0.1:8000/api/task-create/'
+
+    if(editing === true){
+      url = `http://127.0.0.1:8000/api/task-update/${activeItem.id}/`
+      setEditing(false);
+    }
+
+    fetch(url, {
+      method:'POST',
+      headers:{
+        'Content-type':'application/json',
+      },
+      body:JSON.stringify(activeItem)
+    }).then((response)  => {
+        fetchTasks();
+        
+        setActiveItem({
+          id:null, 
+          title:'',
+          completed:false
+        });
+    }).catch(function(error){
+      console.log('ERROR:', error)
+    })
+  }
+
+  const handleChange = e => {
+    var name = e.target.name
+    var value = e.target.value
+    console.log('Name:', name)
+    console.log('Value:', value)
+
+    setActiveItem({
+        ...activeItem,
+        title:value
+    })
+  }
+
     return(
         <div className="container">
 
           <div id="task-container">
               <div  id="form-wrapper">
-                 <form id="form">
+                 <form id="form" onSubmit={handleSubmit}>
                     <div className="flex-wrapper">
                         <div style={{flex: 6}}>
-                            <input  className="form-control" id="title" value={activeItem.title} type="text" name="title" placeholder="Add task.." />
+                            <input onChange={handleChange} className="form-control" id="title" value={activeItem.title} type="text" name="title" placeholder="Add task.." />
                          </div>
 
                          <div style={{flex: 1}}>
