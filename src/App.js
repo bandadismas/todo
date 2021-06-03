@@ -72,6 +72,24 @@ export default function App() {
       setEditing(true);
   }
 
+const strikeUnstrike = (task) => {
+
+    task.completed = !task.completed
+    let url = `http://127.0.0.1:8000/api/task-update/${task.id}/`
+
+      fetch(url, {
+        method:'POST',
+        headers:{
+          'Content-type':'application/json',
+        },
+        body:JSON.stringify({'completed': task.completed, 'title':task.title})
+      }).then(() => {
+        fetchTasks();
+      })
+
+    console.log('TASK:', task.completed)
+  }
+
     return(
         <div className="container">
 
@@ -96,7 +114,7 @@ export default function App() {
                       return(
                           <div key={index} className="task-wrapper flex-wrapper">
 
-                            <div style={{flex:7}}>
+                            <div onClick={() => strikeUnstrike(task)} style={{flex:7}}>
 
                                 {task.completed === false ? (
                                     <span>{task.title}</span>
